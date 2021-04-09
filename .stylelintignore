@@ -1,0 +1,5 @@
+packages/kod/src/tuiWrapper/css
+
+# GraphQL generated files
+/packages/kod/src/api/apollo.tsx
+/packages/kod/src/api/getSdk.ts

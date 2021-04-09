@@ -1,0 +1,30 @@
+# Project
+node_modules/
+/Dockerfile
+/nginx.conf
+.*
+!.babelrc
+*.log
+*.sh
+*.tsbuildinfo
+*.gz
+yarn.lock
+/packages/*/lib
+/packages/*/dist
+/packages/*/coverage
+/packages/*/build
+/packages/kod/src/api/apollo.tsx
+/packages/kod/src/api/getSdk.ts
+LICENSE
+
+
+packages/squire
+
+# Images
+*.svg
+*.jpg
+*.png
+*.cur
+
+# markdown
+*.md

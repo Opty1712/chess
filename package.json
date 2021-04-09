@@ -12,9 +12,36 @@
     "lint": "yarn run lint-ts && yarn lint-commitlint && yarn run lint-prettier && yarn run lint-stylelint && yarn lint-eslint",
     "lint-ts": "tsc",
     "lint-commitlint": "yarn commitlint -c commitlint.config.js --from 399c74075c502b05ae4c65f0ca58ea97d1211b14",
-    "lint-eslint": "eslint --ext .js,.jsx,.ts,.tsx ./packages --color --cache",
+    "lint-eslint": "eslint --ext .js,.jsx,.ts,.tsx --color --cache",
     "lint-prettier": "prettier -c **/*",
     "lint-stylelint": "stylelint **/*.{ts,tsx}"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write"
+    ],
+    "*.tsx": [
+      "prettier --write"
+    ],
+    "*.css": [
+      "prettier --write"
+    ],
+    "*.js": [
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "stylelint",
+      "eslint --color --fix --cache"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "next build",
-    "clean": "rimraf ./.next",
+    "clean": "rimraf ./.next ./.linaria-cache",
     "dev": "next",
     "start": "next start",
     "test": "cross-env NODE_ENV=test jest -c jest.config.js",

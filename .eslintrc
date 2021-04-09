@@ -89,6 +89,6 @@
     // }
   ],
   "globals": {
-    "nameof": "readonly",
+    "nameof": "readonly"
   }
 }

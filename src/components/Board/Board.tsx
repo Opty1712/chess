@@ -66,7 +66,7 @@ const horizontalLine: HorizontalLine = horizontalLineSymbolsArray.reduce<Horizon
 
 type BoardCells = Record<string, HorizontalLine>;
 
-const boardCells: BoardCells = verticalLineSymbolsArray.reduce<Number>(
+const boardCells: BoardCells = verticalLineSymbolsArray.reduce<string>(
   (accumulator, current) => {
     accumulator[current] = { ...horizontalLine };
 

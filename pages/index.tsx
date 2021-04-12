@@ -1,1 +1,1 @@
-export default () => 'Hello';
+export { Board as default } from '../src/components';

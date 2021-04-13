@@ -18,5 +18,5 @@ const BlackCell = styled.div`
 `;
 
 const whiteCellClassName = css`
-  background-color: ${colors.lightMain};
+  background-color: ${colors.lightMinor};
 `;

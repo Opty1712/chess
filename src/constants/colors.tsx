@@ -1,7 +1,7 @@
 export const colors = {
   lightMain: '#fff',
-  lightMinor: '#d2be7d',
+  lightMinor: '#fdf4d2',
 
-  darkMain: '#6f5316',
+  darkMain: '#dccaa1',
   darkMinor: '#8a6014'
 };

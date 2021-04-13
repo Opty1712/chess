@@ -1,11 +1,12 @@
 import { memo } from 'react';
-import { AppRoot, Board } from '../src/components';
+import { AppRoot } from '../src/components';
+import { Chess } from '../src/containers';
 
-const Chess = memo(() => (
+const ChessGame = memo(() => (
   <AppRoot>
-    <Board />
+    <Chess />
   </AppRoot>
 ));
-Chess.displayName = nameof(Chess);
+ChessGame.displayName = nameof(ChessGame);
 
-export default Chess;
+export default ChessGame;

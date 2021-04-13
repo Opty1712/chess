@@ -4,17 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "next build",
+    "build": "yarn clean && next build",
     "clean": "rimraf ./.next ./.linaria-cache",
     "dev": "next",
     "start": "next start",
     "test": "cross-env NODE_ENV=test jest -c jest.config.js",
-    "lint": "yarn run lint-ts && yarn lint-commitlint && yarn run lint-prettier && yarn run lint-stylelint && yarn lint-eslint",
-    "lint-ts": "tsc",
-    "lint-commitlint": "yarn commitlint -c commitlint.config.js --from 399c74075c502b05ae4c65f0ca58ea97d1211b14",
-    "lint-eslint": "eslint --ext .js,.jsx,.ts,.tsx --color --cache",
-    "lint-prettier": "prettier -c **/*",
-    "lint-stylelint": "stylelint **/*.{ts,tsx}"
+    "lint": "yarn lint:ts && yarn lint:commitlint && yarn lint:prettier && yarn lint:stylelint && yarn lint:eslint",
+    "lint:ts": "tsc",
+    "lint:commitlint": "yarn commitlint -c commitlint.config.js --from 399c74075c502b05ae4c65f0ca58ea97d1211b14",
+    "lint:eslint": "eslint --ext .js,.jsx,.ts,.tsx --color --cache",
+    "lint:prettier": "prettier -c **/*",
+    "lint:stylelint": "stylelint **/*.{ts,tsx}"
   },
   "husky": {
     "hooks": {
@@ -27,6 +27,7 @@
       "prettier --write"
     ],
     "*.(ts,tsx)": [
+      "tsc --noEmit",
       "prettier --write",
       "stylelint",
       "eslint --color --fix --cache"
@@ -49,7 +50,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^6.0.0",
+    "husky": "^4.3.5",
     "jest": "^26.6.3",
     "linaria": "1.3.3",
     "lint-staged": "^10.5.4",

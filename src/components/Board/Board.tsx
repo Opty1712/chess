@@ -1,61 +1,55 @@
 import { styled } from 'linaria/react';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { colors } from '../../constants';
 import { Field } from './Field';
 
-export const Board = memo(() => {
-  const getHorizontalLineView = useCallback((isWhiteCellFirst = true) => {
-    return horizontalLineSymbolsArray.map((item, index) => {
-      const isWhite = Boolean(
-        Number(isWhiteCellFirst) - Number(index % 2 === 0)
+export const Board = memo(() => (
+  <BoardWithLineHeadings>
+    {rowHeadingArray.map((item, index) => {
+      const rowName = rowHeadingArray.length - Number(item) + 1;
+
+      return (
+        <Row key={rowName}>
+          <LineName>{rowName}</LineName>
+          {getRow(index % 2 > 0)}
+          <LineName>{rowName}</LineName>
+        </Row>
       );
-
-      return <Field isWhite={isWhite} key={item} />;
-    });
-  }, []);
-
-  const m = verticalLineSymbolsArray.map((item, index) => {
-    const name = verticalLineSymbolsArray.length - Number(item) + 1;
-    return (
-      <Row key={name}>
-        <LineName>{name}</LineName>
-        {getHorizontalLineView(index % 2 > 0)}
-        <LineName>{name}</LineName>
-      </Row>
-    );
-  });
-
-  const alphabeticalLine = horizontalLineSymbolsArray.map((item) => (
-    <LineName key={item}>{item}</LineName>
-  ));
-
-  return (
-    <BoardWithSymbols>
-      <Row>
-        <LineName />
-        {alphabeticalLine}
-        <LineName />
-      </Row>
-      {m}
-      <Row>
-        <LineName />
-        {alphabeticalLine}
-        <LineName />
-      </Row>
-    </BoardWithSymbols>
-  );
-});
+    })}
+  </BoardWithLineHeadings>
+));
 Board.displayName = nameof(Board);
 
-const verticalLineSymbols = '12345678';
-const verticalLineSymbolsArray = verticalLineSymbols.split('');
+const AlphabeticalLine = memo(() => (
+  <Row>
+    <LineName />
+    {columnHeadingArray.map((item) => (
+      <LineName key={item}>{item}</LineName>
+    ))}
+    <LineName />
+  </Row>
+));
+AlphabeticalLine.displayName = nameof(AlphabeticalLine);
 
-const horizontalLineSymbols = 'abcdefgh';
-const horizontalLineSymbolsArray = horizontalLineSymbols.split('');
+const BoardWithLineHeadings = memo(({ children }) => {
+  return (
+    <BoardStyled>
+      <AlphabeticalLine />
+      {children}
+      <AlphabeticalLine />
+    </BoardStyled>
+  );
+});
+BoardWithLineHeadings.displayName = nameof(BoardWithLineHeadings);
 
-type HorizontalLine = Record<string, string | null>;
+const rowHeadings = '12345678';
+const rowHeadingArray = rowHeadings.split('');
+const columnHeadings = 'abcdefgh';
+const columnHeadingArray = columnHeadings.split('');
 
-const horizontalLine: HorizontalLine = horizontalLineSymbolsArray.reduce<HorizontalLine>(
+type RowData = Record<string, string | null>;
+
+const rowData: RowData = columnHeadingArray.reduce<RowData>(
   (accumulator, current) => {
     accumulator[current] = null;
 
@@ -64,16 +58,16 @@ const horizontalLine: HorizontalLine = horizontalLineSymbolsArray.reduce<Horizon
   {}
 );
 
-type BoardCells = Record<string, HorizontalLine>;
+const nineCellsRowStartingWithWhite = new Array(9)
+  .fill('')
+  .map((_item, index) => <Field isWhite={index % 2 === 0} key={index} />);
 
-const boardCells: BoardCells = verticalLineSymbolsArray.reduce<BoardCells>(
-  (accumulator, current) => {
-    accumulator[current] = { ...horizontalLine };
-
-    return accumulator;
-  },
-  {}
-);
+const getRow = (isWhiteCellFirst = true) => {
+  return nineCellsRowStartingWithWhite.slice(
+    isWhiteCellFirst ? 1 : 0,
+    isWhiteCellFirst ? 9 : 8
+  );
+};
 
 const Row = styled.div`
   display: flex;
@@ -90,13 +84,21 @@ const LineName = styled.div`
   text-transform: uppercase;
 `;
 
-const BoardView = styled.div`
+const BoardStyled = styled.div`
   border: 1px solid ${colors.lightMain};
   display: inline-block;
   margin: 20px;
 `;
 
-const BoardWithSymbols = memo(({ children }) => {
-  return <BoardView>{children}</BoardView>;
-});
-BoardWithSymbols.displayName = nameof(BoardWithSymbols);
+type BoardCells = Record<string, RowData>;
+
+const boardCells: BoardCells = rowHeadingArray.reduce<BoardCells>(
+  (accumulator, current) => {
+    accumulator[current] = { ...rowData };
+
+    return accumulator;
+  },
+  {}
+);
+
+console.log(boardCells);

@@ -1,12 +1,12 @@
 import { styled } from 'linaria/react';
 import { memo } from 'react';
-import { colors } from '../../constants';
+import { colors, columnHeadingList, rowHeadingList } from '../../constants';
 import { Field } from './Field';
 
-export const Board = memo(() => (
+export const ChessBoard = memo(() => (
   <BoardWithLineHeadings>
-    {rowHeadingArray.map((item, index) => {
-      const rowName = rowHeadingArray.length - Number(item) + 1;
+    {rowHeadingList.map((item, index) => {
+      const rowName = rowHeadingList.length - Number(item) + 1;
 
       return (
         <Row key={rowName}>
@@ -18,12 +18,12 @@ export const Board = memo(() => (
     })}
   </BoardWithLineHeadings>
 ));
-Board.displayName = nameof(Board);
+ChessBoard.displayName = nameof(ChessBoard);
 
 const AlphabeticalLine = memo(() => (
   <Row>
     <LineName />
-    {columnHeadingArray.map((item) => (
+    {columnHeadingList.map((item) => (
       <LineName key={item}>{item}</LineName>
     ))}
     <LineName />
@@ -41,22 +41,6 @@ const BoardWithLineHeadings = memo(({ children }) => {
   );
 });
 BoardWithLineHeadings.displayName = nameof(BoardWithLineHeadings);
-
-const rowHeadings = '12345678';
-const rowHeadingArray = rowHeadings.split('');
-const columnHeadings = 'abcdefgh';
-const columnHeadingArray = columnHeadings.split('');
-
-type RowData = Record<string, string | null>;
-
-const rowData: RowData = columnHeadingArray.reduce<RowData>(
-  (accumulator, current) => {
-    accumulator[current] = null;
-
-    return accumulator;
-  },
-  {}
-);
 
 const nineCellsRowStartingWithWhite = new Array(9)
   .fill('')
@@ -87,18 +71,4 @@ const LineName = styled.div`
 const BoardStyled = styled.div`
   border: 1px solid ${colors.lightMain};
   display: inline-block;
-  margin: 20px;
 `;
-
-type BoardCells = Record<string, RowData>;
-
-const boardCells: BoardCells = rowHeadingArray.reduce<BoardCells>(
-  (accumulator, current) => {
-    accumulator[current] = { ...rowData };
-
-    return accumulator;
-  },
-  {}
-);
-
-console.log(boardCells);

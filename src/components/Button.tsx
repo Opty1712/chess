@@ -10,6 +10,8 @@ export const Button = styled.button`
   padding: 10px 20px;
   cursor: pointer;
   outline: none;
+  margin: 20px;
+
   &:focus {
     box-shadow: 0 0 3px 4px ${colors.darkMain};
   }

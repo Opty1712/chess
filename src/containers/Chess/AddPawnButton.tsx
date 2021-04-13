@@ -4,7 +4,7 @@ import { Button } from '../../components';
 export const AddPawnButton = memo<{
   onAdd: () => void;
 }>(({ onAdd }) => {
-  const handleKeyPress: EventListener = useCallback(
+  const handleKeyDown: EventListener = useCallback(
     (event) => {
       if (event instanceof KeyboardEvent && event.key === 'a') {
         onAdd();
@@ -14,9 +14,9 @@ export const AddPawnButton = memo<{
   );
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
+    document.addEventListener('keydown', handleKeyDown);
 
-    return () => document.removeEventListener('keypress', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   });
 
   return (

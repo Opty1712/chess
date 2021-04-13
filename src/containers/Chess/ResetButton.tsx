@@ -4,7 +4,7 @@ import { Button } from '../../components';
 export const ResetButton = memo<{
   onReset: () => void;
 }>(({ onReset }) => {
-  const handleKeyPress: EventListener = useCallback(
+  const handleKeyDown: EventListener = useCallback(
     (event) => {
       if (event instanceof KeyboardEvent && event.key === 'r') {
         onReset();
@@ -14,9 +14,9 @@ export const ResetButton = memo<{
   );
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
+    document.addEventListener('keydown', handleKeyDown);
 
-    return () => document.removeEventListener('keypress', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   });
 
   return (

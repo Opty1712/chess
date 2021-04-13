@@ -1,18 +1,22 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { Board } from '../../components';
+import { useSwitcher } from '../../utils';
 import { AddPawnButton } from './AddPawnButton';
 import { ResetButton } from './ResetButton';
 
 export const Chess = memo(() => {
-  const [isInitialBoard, setIsInitialBoard] = useState(true);
+  const {
+    isSwitchedOn: isInitialBoard,
+    toggleSwitcher: toggleIsInitialBoard
+  } = useSwitcher();
 
   return (
     <>
       <Board />
       {isInitialBoard ? (
-        <ResetButton onReset={() => setIsInitialBoard(false)} />
+        <ResetButton onReset={toggleIsInitialBoard} />
       ) : (
-        <AddPawnButton onAdd={() => setIsInitialBoard(true)} />
+        <AddPawnButton onAdd={toggleIsInitialBoard} />
       )}
     </>
   );

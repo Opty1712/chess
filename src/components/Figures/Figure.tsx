@@ -1,20 +1,18 @@
-import { memo } from 'react';
-import { cellSize } from '../../constants';
+import React, { ComponentType, memo } from 'react';
+import { cellSize, FigureName } from '../../constants';
 import { FigureRoot } from './FigureRoot';
 import { BlackPawn, WhitePawn, WhiteQueen } from './Figures';
 
-const figureComponents = {
+const figureComponents: Record<FigureName, ComponentType> = {
   blackPawn: BlackPawn,
   whitePawn: WhitePawn,
   whiteQueen: WhiteQueen
 };
 
-type FigureShiftOnChessBoard = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-
 type FigureProps = {
-  left: FigureShiftOnChessBoard;
-  top: FigureShiftOnChessBoard;
-  figure: keyof typeof figureComponents;
+  left: number;
+  top: number;
+  figure: FigureName;
 };
 
 export const Figure = memo<FigureProps>(({ left, top, figure }) => {

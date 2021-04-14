@@ -16,7 +16,7 @@ export const ChessBoard = memo(() => (
       return (
         <Row key={rowName}>
           <LineName>{rowName}</LineName>
-          {getRow(index % 2 > 0)}
+          {getRow(index % 2 === 0)}
           <LineName>{rowName}</LineName>
         </Row>
       );
@@ -47,15 +47,18 @@ const BoardWithLineHeadings = memo(({ children }) => {
 });
 BoardWithLineHeadings.displayName = nameof(BoardWithLineHeadings);
 
-const nineCellsRowStartingWithWhite = new Array(9)
+const rowStartingWithWhite = new Array(8)
   .fill('')
   .map((_item, index) => <Field isWhite={index % 2 === 0} key={index} />);
 
 const getRow = (isWhiteCellFirst = true) => {
-  return nineCellsRowStartingWithWhite.slice(
-    isWhiteCellFirst ? 1 : 0,
-    isWhiteCellFirst ? 9 : 8
-  );
+  if (isWhiteCellFirst) {
+    return [...rowStartingWithWhite];
+  }
+
+  const [firstCell, ...restCellS] = rowStartingWithWhite;
+
+  return [...restCellS, firstCell];
 };
 
 const Row = styled.div`

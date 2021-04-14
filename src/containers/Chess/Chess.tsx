@@ -1,43 +1,73 @@
 import { styled } from 'linaria/react';
-import { memo } from 'react';
+import cloneDeep from 'lodash.clonedeep';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { ChessBoard, Figure } from '../../components';
-import { cellSize } from '../../constants';
+import { BoardState, cellSize, emptyBoard } from '../../constants';
 import { useSwitcher } from '../../utils';
 import { AddPawnButton } from './AddPawnButton';
 import { ResetButton } from './ResetButton';
 
 export const Chess = memo(() => {
   const {
-    isSwitchedOn: isInitialBoard,
-    toggleSwitcher: toggleIsInitialBoard
+    isSwitchedOn: isInitialState,
+    toggleSwitcher: toggleIsInitialState
   } = useSwitcher();
+
+  const [boardState, setBoardState] = useState<BoardState>(emptyBoard);
+
+  const resetBoardState = useCallback(() => {
+    setBoardState((value) => {
+      const clonedState = cloneDeep(value);
+      clonedState[2][1] = 'blackPawn';
+
+      return clonedState;
+    });
+  }, []);
+
+  useEffect(() => {
+    isInitialState && resetBoardState();
+  }, [isInitialState, resetBoardState]);
 
   return (
     <>
-      <FiguresRoot>
+      <Root>
         <ChessBoard />
-        {isInitialBoard ? (
-          <Figure left={3} top={2} figure="blackPawn" />
-        ) : (
-          <>
-            <Figure left={1} top={1} figure="whitePawn" />
-            <Figure left={2} top={1} figure="whiteQueen" />
-          </>
-        )}
-      </FiguresRoot>
 
-      {isInitialBoard ? (
-        <ResetButton onReset={toggleIsInitialBoard} />
+        <ChessFigures>
+          {boardState.map((itemRow, indexRow) =>
+            itemRow.map((itemCell, indexCell) =>
+              itemCell ? (
+                <Figure
+                  left={indexRow}
+                  top={indexCell}
+                  figure={itemCell}
+                  key={indexRow + indexCell}
+                />
+              ) : null
+            )
+          )}
+        </ChessFigures>
+      </Root>
+
+      {isInitialState ? (
+        <ResetButton onReset={toggleIsInitialState} />
       ) : (
-        <AddPawnButton onAdd={toggleIsInitialBoard} />
+        <AddPawnButton onAdd={toggleIsInitialState} />
       )}
     </>
   );
 });
 Chess.displayName = nameof(Chess);
 
-const FiguresRoot = styled.div`
-  width: ${cellSize * 10}px;
-  height: ${cellSize * 10}px;
+const Root = styled.div`
   position: relative;
+`;
+
+const ChessFigures = styled.div`
+  margin: ${cellSize}px;
+  position: absolute;
+  width: ${cellSize * 8}px;
+  height: ${cellSize * 8}px;
+  top: 0;
+  left: 0;
 `;

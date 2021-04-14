@@ -1,33 +1,26 @@
-/** Size of every element is calculated based on this parameter */
-export const cellSize = 50; //px
+/**
+ * Size of every element is calculated based on this parameter in «px»
+ * Restarting «yarn dev» is obligatory after changing!!!
+ * */
+export const cellSize = 50;
 
 const rowHeadings = '12345678';
 const columnHeadings = 'abcdefgh';
 
-/** Symbols for vertical board lines naming (digits) */
+/** Vertical board lines naming (digits) */
 export const rowHeadingList = rowHeadings.split('');
 
-/** Symbols for horizontal board lines naming (letters) */
+/** Horizontal board lines naming (letters) */
 export const columnHeadingList = columnHeadings.split('');
 
-type RowData = Record<string, string | null>;
+type RowData = Array<FigureName | null>;
+const rowData = new Array(8).fill(null);
 
-const rowData: RowData = columnHeadingList.reduce<RowData>(
-  (accumulator, current) => {
-    accumulator[current] = null;
+/** State of empty/occupied chess cells */
+export type BoardState = Array<RowData>;
 
-    return accumulator;
-  },
-  {}
-);
+/** Initial empty board */
+export const emptyBoard: BoardState = rowData.map(() => [...rowData]);
 
-type BoardCells = Record<string, RowData>;
-
-export const boardCells: BoardCells = rowHeadingList.reduce<BoardCells>(
-  (accumulator, current) => {
-    accumulator[current] = { ...rowData };
-
-    return accumulator;
-  },
-  {}
-);
+/** Names of chess figures */
+export type FigureName = 'blackPawn' | 'whitePawn' | 'whiteQueen';

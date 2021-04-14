@@ -1,7 +1,7 @@
 import { css, cx } from 'linaria';
 import { styled } from 'linaria/react';
 import { memo } from 'react';
-import { colors } from '../../constants';
+import { cellSize, colors } from '../../constants';
 
 type Field = {
   isWhite: boolean;
@@ -12,8 +12,8 @@ export const Field = memo<Field>(({ isWhite }) => {
 Field.displayName = nameof(Field);
 
 const BlackCell = styled.div`
-  height: 100px;
-  width: 100px;
+  height: ${cellSize}px;
+  width: ${cellSize}px;
   background-color: ${colors.darkMain};
 `;
 

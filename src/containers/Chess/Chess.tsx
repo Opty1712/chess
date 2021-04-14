@@ -1,6 +1,7 @@
 import { styled } from 'linaria/react';
 import { memo } from 'react';
 import { ChessBoard, Figure } from '../../components';
+import { cellSize } from '../../constants';
 import { useSwitcher } from '../../utils';
 import { AddPawnButton } from './AddPawnButton';
 import { ResetButton } from './ResetButton';
@@ -16,11 +17,11 @@ export const Chess = memo(() => {
       <FiguresRoot>
         <ChessBoard />
         {isInitialBoard ? (
-          <Figure left="300px" top="200px" figure="blackPawn" />
+          <Figure left={3} top={2} figure="blackPawn" />
         ) : (
           <>
-            <Figure left="100px" top="100px" figure="whitePawn" />
-            <Figure left="200px" top="100px" figure="whiteQueen" />
+            <Figure left={1} top={1} figure="whitePawn" />
+            <Figure left={2} top={1} figure="whiteQueen" />
           </>
         )}
       </FiguresRoot>
@@ -36,8 +37,7 @@ export const Chess = memo(() => {
 Chess.displayName = nameof(Chess);
 
 const FiguresRoot = styled.div`
-  border: 1px solid red;
-  width: 1000px;
-  height: 1000px;
+  width: ${cellSize * 10}px;
+  height: ${cellSize * 10}px;
   position: relative;
 `;

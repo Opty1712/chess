@@ -6,7 +6,7 @@
   "scripts": {
     "build": "yarn clean && next build",
     "clean": "rimraf ./.next ./.linaria-cache",
-    "dev": "next",
+    "dev": "yarn clean && next",
     "start": "next start",
     "test": "cross-env NODE_ENV=test jest -c jest.config.js",
     "lint": "yarn lint:ts && yarn lint:commitlint && yarn lint:prettier && yarn lint:stylelint && yarn lint:eslint",

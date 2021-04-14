@@ -1,6 +1,11 @@
 import { styled } from 'linaria/react';
 import { memo } from 'react';
-import { colors, columnHeadingList, rowHeadingList } from '../../constants';
+import {
+  cellSize,
+  colors,
+  columnHeadingList,
+  rowHeadingList
+} from '../../constants';
 import { Field } from './Field';
 
 export const ChessBoard = memo(() => (
@@ -58,11 +63,11 @@ const Row = styled.div`
 `;
 
 const LineName = styled.div`
-  width: 100px;
-  height: 100px;
-  font-size: 40px;
+  width: ${cellSize}px;
+  height: ${cellSize}px;
+  font-size: ${cellSize * 0.4}px;
   box-sizing: border-box;
-  padding: 25px 0 0 40px;
+  padding: ${cellSize * 0.25}px 0 0 ${cellSize * 0.4}px;
   color: ${colors.lightMinor};
   background-color: ${colors.darkMinor};
   text-transform: uppercase;

@@ -1,6 +1,13 @@
+/** Size of every element is calculated based on this parameter */
+export const cellSize = 50; //px
+
 const rowHeadings = '12345678';
-export const rowHeadingList = rowHeadings.split('');
 const columnHeadings = 'abcdefgh';
+
+/** Symbols for vertical board lines naming (digits) */
+export const rowHeadingList = rowHeadings.split('');
+
+/** Symbols for horizontal board lines naming (letters) */
 export const columnHeadingList = columnHeadings.split('');
 
 type RowData = Record<string, string | null>;

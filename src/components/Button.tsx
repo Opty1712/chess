@@ -1,10 +1,10 @@
 import { styled } from 'linaria/react';
-import { colors } from '../constants';
+import { cellSize, colors } from '../constants';
 
 export const Button = styled.button`
   color: ${colors.lightMinor};
   background-color: ${colors.darkMinor};
-  font-size: 30px;
+  font-size: ${cellSize * 0.3}px;
   border: 0;
   border-radius: 5px;
   padding: 10px 20px;

@@ -1,5 +1,6 @@
 import { styled } from 'linaria/react';
 import { memo } from 'react';
+import { cellSize } from '../constants';
 
 export const AppRoot = memo(({ children }) => (
   <Root>
@@ -36,6 +37,6 @@ const Root = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-  min-height: 1000px;
-  min-width: 1000px;
+  min-height: ${cellSize * 11}px;
+  min-width: ${cellSize * 10}px;
 `;

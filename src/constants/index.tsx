@@ -1,2 +1,7 @@
-export { boardCells, columnHeadingList, rowHeadingList } from './boardSettings';
+export {
+  boardCells,
+  cellSize,
+  columnHeadingList,
+  rowHeadingList
+} from './boardSettings';
 export { colors } from './colors';

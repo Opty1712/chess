@@ -11,7 +11,7 @@ export const Chess = memo(() => {
   const {
     isSwitchedOn: isInitialState,
     toggleSwitcher: toggleIsInitialState
-  } = useSwitcher();
+  } = useSwitcher(true);
 
   const [boardState, setBoardState] = useState<BoardState>(emptyBoard);
 
@@ -50,9 +50,9 @@ export const Chess = memo(() => {
       </Root>
 
       {isInitialState ? (
-        <ResetButton onReset={toggleIsInitialState} />
-      ) : (
         <AddPawnButton onAdd={toggleIsInitialState} />
+      ) : (
+        <ResetButton onReset={toggleIsInitialState} />
       )}
     </>
   );

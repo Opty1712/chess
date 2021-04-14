@@ -74,6 +74,7 @@ const LineName = styled.div`
   color: ${colors.lightMinor};
   background-color: ${colors.darkMinor};
   text-transform: uppercase;
+  user-select: none;
 `;
 
 const BoardStyled = styled.div`

@@ -19,7 +19,11 @@ const rowData = new Array(8).fill(null);
 /** State of empty/occupied chess cells */
 export type BoardState = Array<RowData>;
 
-/** Initial empty board */
+/**
+ * Initial empty board.
+ * Zero coordinate is at left top corner.
+ * The first is «X» (left → right), the second is «Y» (top ↓ bottom).
+ *  */
 export const emptyBoard: BoardState = rowData.map(() => [...rowData]);
 
 /** Names of chess figures */

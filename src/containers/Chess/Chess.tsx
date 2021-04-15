@@ -1,17 +1,10 @@
 import { styled } from 'linaria/react';
-import cloneDeep from 'lodash.clonedeep';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { ChessBoard, Figure, FigureInfo } from '../../components';
-import {
-  BoardState,
-  cellSize,
-  emptyBoard,
-  legalMoves,
-  NullableField
-} from '../../constants';
+import { BoardState, cellSize, emptyBoard } from '../../constants';
 import { useSwitcher } from '../../utils';
 import { AddPawnButton } from './AddPawnButton';
-import { getLegalRandomPosition } from './helpers';
+import { addWhitePawn, getAllMoves, getInitialBoard } from './helpers';
 import { ResetButton } from './ResetButton';
 
 export const Chess = memo(() => {
@@ -25,44 +18,20 @@ export const Chess = memo(() => {
 
   const resetBoardState = useCallback(() => {
     setIsInitialStateOn();
-
-    const clonedState = cloneDeep(emptyBoard);
-    clonedState[2][1] = 'blackPawn';
-    setBoardState(clonedState);
+    setBoardState(getInitialBoard());
   }, [setIsInitialStateOn]);
 
   const addFigure = useCallback(() => {
     setIsInitialStateOff();
-
-    setBoardState((value) => {
-      const clonedState = cloneDeep(value);
-      const field = getLegalRandomPosition('whitePawn', clonedState);
-      if (field) {
-        clonedState[field.x][field.y] = 'whitePawn';
-      }
-
-      return clonedState;
-    });
+    setBoardState((value) => addWhitePawn(value));
   }, [setIsInitialStateOff]);
 
   useEffect(() => {
     isInitialState && resetBoardState();
   }, [isInitialState, resetBoardState]);
 
-  const handleFigureClick = useCallback(({ figure, x, y }: FigureInfo) => {
-    const rules = legalMoves[figure];
-    if (rules) {
-      const availableFields = rules.reduce<NullableField[]>(
-        (accumulator, current) => {
-          if (current.check({ x, y })) {
-            accumulator.push(...current.moves, ...current.eats);
-          }
-
-          return accumulator;
-        },
-        []
-      );
-    }
+  const handleFigureClick = useCallback((figureInfo: FigureInfo) => {
+    const allMoves = getAllMoves(figureInfo);
   }, []);
 
   return (

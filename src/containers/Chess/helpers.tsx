@@ -1,7 +1,11 @@
+import cloneDeep from 'lodash.clonedeep';
+import { FigureInfo } from '../../components';
 import {
   BoardState,
+  emptyBoard,
   FigureName,
   legalFields,
+  legalMoves,
   NullableField
 } from '../../constants';
 
@@ -50,4 +54,35 @@ export const checkIsFieldOccupied = (
   }
 
   return Boolean(boardState[field.x][field.y]);
+};
+
+export const getInitialBoard = () => {
+  const clonedState = cloneDeep(emptyBoard);
+  clonedState[2][1] = 'blackPawn';
+  return clonedState;
+};
+
+export const addWhitePawn = (boardState: BoardState) => {
+  const clonedState = cloneDeep(boardState);
+  const field = getLegalRandomPosition('whitePawn', clonedState);
+  if (field) {
+    clonedState[field.x][field.y] = 'whitePawn';
+  }
+
+  return clonedState;
+};
+
+export const getAllMoves = ({ figure, x, y }: FigureInfo) => {
+  const rules = legalMoves[figure];
+  if (rules) {
+    return rules.reduce<NullableField[]>((accumulator, current) => {
+      if (current.check({ x, y })) {
+        accumulator.push(...current.moves, ...current.eats);
+      }
+
+      return accumulator;
+    }, []);
+  }
+
+  return [];
 };

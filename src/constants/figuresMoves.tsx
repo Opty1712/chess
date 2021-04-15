@@ -54,14 +54,14 @@ const bottomRightMoves = getAllMoves({ x: '+', y: '+' });
 
 export const legalMoves: PartialRecord<FigureName, Rule[]> = {
   whitePawn: [
-    // 2 steps from first line
+    // two steps forward from first line
     {
       check: (currentField) => currentField?.y === 6,
       moves: topMoves.slice(1, 2),
       eats: []
     },
 
-    // 1 step from any line
+    // one step forward from any line
     {
       check: () => true,
       moves: topMoves.slice(0, 1),

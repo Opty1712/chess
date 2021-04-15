@@ -24,9 +24,12 @@ export const AddPawnButton = memo<{
       aria-label="Add a pawn"
       title="You can press «A» instead"
       onClick={onAdd}
+      data-testid={addPawnButtonTestId}
     >
       Add a pawn
     </Button>
   );
 });
 AddPawnButton.displayName = nameof(AddPawnButton);
+
+export const addPawnButtonTestId = 'addPawnButtonTestId';

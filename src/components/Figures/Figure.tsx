@@ -21,6 +21,7 @@ export const Figure = memo<FigureProps>(({ left, top, figure }) => {
   return (
     <FigureRoot
       style={{ left: `${left * cellSize}px`, top: `${top * cellSize}px` }}
+      data-testid={figure}
     >
       <FigureComponent />
     </FigureRoot>

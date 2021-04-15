@@ -24,9 +24,12 @@ export const ResetButton = memo<{
       aria-label="Reset board"
       title="You can press «R» instead"
       onClick={onReset}
+      data-testid={resetButtonTestId}
     >
       Reset board
     </Button>
   );
 });
 ResetButton.displayName = nameof(ResetButton);
+
+export const resetButtonTestId = 'resetButtonTestId';

@@ -6,7 +6,7 @@ export const ResetButton = memo<{
 }>(({ onReset }) => {
   const handleKeyDown: EventListener = useCallback(
     (event) => {
-      if (event instanceof KeyboardEvent && event.key === 'r') {
+      if (event instanceof KeyboardEvent && event.key.toLowerCase() === 'r') {
         onReset();
       }
     },

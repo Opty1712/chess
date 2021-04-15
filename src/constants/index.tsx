@@ -6,3 +6,4 @@ export {
 } from './boardSettings';
 export type { BoardState, FigureName } from './boardSettings';
 export { colors } from './colors';
+export { legalFields } from './figuresMoves';

@@ -5,24 +5,39 @@ import { ChessBoard, Figure } from '../../components';
 import { BoardState, cellSize, emptyBoard } from '../../constants';
 import { useSwitcher } from '../../utils';
 import { AddPawnButton } from './AddPawnButton';
+import { getLegalRandomPosition } from './helpers';
 import { ResetButton } from './ResetButton';
 
 export const Chess = memo(() => {
   const {
     isSwitchedOn: isInitialState,
-    toggleSwitcher: toggleIsInitialState
+    switchOff: setIsInitialStateOff,
+    switchOn: setIsInitialStateOn
   } = useSwitcher(true);
 
   const [boardState, setBoardState] = useState<BoardState>(emptyBoard);
 
   const resetBoardState = useCallback(() => {
+    setIsInitialStateOn();
+
+    const clonedState = cloneDeep(emptyBoard);
+    clonedState[2][1] = 'blackPawn';
+    setBoardState(clonedState);
+  }, [setIsInitialStateOn]);
+
+  const addFigure = useCallback(() => {
+    setIsInitialStateOff();
+
     setBoardState((value) => {
       const clonedState = cloneDeep(value);
-      clonedState[2][1] = 'blackPawn';
+      const field = getLegalRandomPosition('whitePawn', clonedState);
+      if (field) {
+        clonedState[field.x][field.y] = 'whitePawn';
+      }
 
       return clonedState;
     });
-  }, []);
+  }, [setIsInitialStateOff]);
 
   useEffect(() => {
     isInitialState && resetBoardState();
@@ -50,9 +65,9 @@ export const Chess = memo(() => {
       </Root>
 
       {isInitialState ? (
-        <AddPawnButton onAdd={toggleIsInitialState} />
+        <AddPawnButton onAdd={addFigure} />
       ) : (
-        <ResetButton onReset={toggleIsInitialState} />
+        <ResetButton onReset={resetBoardState} />
       )}
     </>
   );

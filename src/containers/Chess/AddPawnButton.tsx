@@ -6,7 +6,7 @@ export const AddPawnButton = memo<{
 }>(({ onAdd }) => {
   const handleKeyDown: EventListener = useCallback(
     (event) => {
-      if (event instanceof KeyboardEvent && event.key === 'a') {
+      if (event instanceof KeyboardEvent && event.key.toLowerCase() === 'a') {
         onAdd();
       }
     },

@@ -15,7 +15,8 @@
     "lint:prettier": "prettier -c ./",
     "lint:stylelint": "stylelint **/*.{ts,tsx}",
     "test": "cross-env NODE_ENV=test jest -c jest.config.js",
-    "test:watch": "jest -c jest.config.js --watch"
+    "test:watch": "jest -c jest.config.js --watch",
+    "postinstall": "yarn lint && yarn test && yarn build"
   },
   "husky": {
     "hooks": {

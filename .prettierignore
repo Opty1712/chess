@@ -1,7 +1,5 @@
 # Project
 node_modules/
-/Dockerfile
-/nginx.conf
 .*
 !.babelrc
 *.log
@@ -9,16 +7,11 @@ node_modules/
 *.tsbuildinfo
 *.gz
 yarn.lock
-/packages/*/lib
-/packages/*/dist
-/packages/*/coverage
-/packages/*/build
-/packages/kod/src/api/apollo.tsx
-/packages/kod/src/api/getSdk.ts
-LICENSE
-
-
-packages/squire
+/lib
+/dist
+/coverage
+/build
+/coverage
 
 # Images
 *.svg

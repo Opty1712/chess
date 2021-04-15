@@ -1,11 +1,14 @@
-import { BoardState, FigureName, legalFields } from '../../constants';
-
-type Field = { x: number; y: number } | null;
+import {
+  BoardState,
+  FigureName,
+  legalFields,
+  NullableField
+} from '../../constants';
 
 export const getLegalRandomPosition = (
   figure: FigureName,
   boardState: BoardState
-): Field | null => {
+): NullableField => {
   const field = getRandomField(figure);
 
   if (!field) {
@@ -24,7 +27,7 @@ export const getLegalRandomPosition = (
 const getRandomNumberFromInterval = (min: number, max: number) =>
   Math.floor(min + Math.random() * (max + 1 - min));
 
-export const getRandomField = (figure: FigureName): Field => {
+export const getRandomField = (figure: FigureName): NullableField => {
   const positions = legalFields[figure];
   if (positions) {
     const x = getRandomNumberFromInterval(positions.x[0], positions.x[1]);
@@ -38,7 +41,10 @@ export const getRandomField = (figure: FigureName): Field => {
   return null;
 };
 
-export const checkIsFieldOccupied = (field: Field, boardState: BoardState) => {
+export const checkIsFieldOccupied = (
+  field: NullableField,
+  boardState: BoardState
+) => {
   if (!field) {
     return null;
   }

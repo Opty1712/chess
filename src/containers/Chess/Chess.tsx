@@ -53,8 +53,8 @@ export const Chess = memo(() => {
             itemRow.map((itemCell, indexCell) =>
               itemCell ? (
                 <Figure
-                  left={indexRow}
-                  top={indexCell}
+                  x={indexRow}
+                  y={indexCell}
                   figure={itemCell}
                   key={indexRow + indexCell}
                 />

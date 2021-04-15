@@ -25,13 +25,21 @@ describe(nameof(getRow), () => {
     expect(getRow().length).toBe(8);
   });
 
-  it('returns white cell first', () => {
-    const firstCell = getRow()[0];
+  it('first cells are white and black ', () => {
+    const row = getRow();
+    const firstCell = row[0];
+    const secondCell = row[1];
+
     expect(firstCell.props.isWhite).toBe(true);
+    expect(secondCell.props.isWhite).toBe(false);
   });
 
-  it('returns black cell first', () => {
-    const firstCell = getRow(false)[0];
+  it('first cells are black and white', () => {
+    const row = getRow(false);
+    const firstCell = row[0];
+    const secondCell = row[1];
+
     expect(firstCell.props.isWhite).toBe(false);
+    expect(secondCell.props.isWhite).toBe(true);
   });
 });

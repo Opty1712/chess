@@ -17,6 +17,6 @@ const BlackCell = styled.div`
   background-color: ${colors.darkMain};
 `;
 
-const whiteCellClassName = css`
+export const whiteCellClassName = css`
   background-color: ${colors.lightMinor};
 `;

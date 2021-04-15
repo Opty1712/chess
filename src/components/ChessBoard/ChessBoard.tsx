@@ -14,7 +14,7 @@ export const ChessBoard = memo(() => (
       const rowName = rowHeadingList.length - Number(item) + 1;
 
       return (
-        <Row key={rowName}>
+        <Row key={rowName} data-testid={boardTestIds.row}>
           <LineName>{rowName}</LineName>
           {getRow(index % 2 === 0)}
           <LineName>{rowName}</LineName>
@@ -38,7 +38,7 @@ AlphabeticalLine.displayName = nameof(AlphabeticalLine);
 
 const BoardWithLineHeadings = memo(({ children }) => {
   return (
-    <BoardStyled>
+    <BoardStyled data-testid={boardTestIds.board}>
       <AlphabeticalLine />
       {children}
       <AlphabeticalLine />
@@ -51,7 +51,7 @@ const rowStartingWithWhite = new Array(8)
   .fill('')
   .map((_item, index) => <Field isWhite={index % 2 === 0} key={index} />);
 
-const getRow = (isWhiteCellFirst = true) => {
+export const getRow = (isWhiteCellFirst = true) => {
   if (isWhiteCellFirst) {
     return [...rowStartingWithWhite];
   }
@@ -59,6 +59,11 @@ const getRow = (isWhiteCellFirst = true) => {
   const [firstCell, ...restCellS] = rowStartingWithWhite;
 
   return [...restCellS, firstCell];
+};
+
+export const boardTestIds = {
+  board: 'board',
+  row: 'row'
 };
 
 const Row = styled.div`

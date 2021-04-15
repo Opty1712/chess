@@ -16,7 +16,7 @@
     "lint:stylelint": "stylelint **/*.{ts,tsx}",
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "jest --watch",
-    "check": "yarn lint && yarn test && yarn build"
+    "health": "yarn lint && yarn test && yarn build"
   },
   "husky": {
     "hooks": {

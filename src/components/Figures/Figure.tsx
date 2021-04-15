@@ -1,5 +1,5 @@
 import React, { ComponentType, memo, useCallback } from 'react';
-import { cellSize, Field, FigureName, legalMoves } from '../../constants';
+import { cellSize, FigureName } from '../../constants';
 import { FigureRoot } from './FigureRoot';
 import { BlackPawn, WhitePawn, WhiteQueen } from './Figures';
 
@@ -9,33 +9,26 @@ const figureComponents: Record<FigureName, ComponentType> = {
   whiteQueen: WhiteQueen
 };
 
+export type FigureInfo = { figure: FigureName; x: number; y: number };
 type FigureProps = {
   x: number;
   y: number;
   figure: FigureName;
+  onClick: (figureInfo: FigureInfo) => void;
 };
 
-export const Figure = memo<FigureProps>(({ x, y, figure }) => {
+export const Figure = memo<FigureProps>(({ x, y, figure, onClick }) => {
   const FigureComponent = figureComponents[figure];
 
-  const showAvailableMoves = useCallback(() => {
-    const rules = legalMoves[figure];
-    if (rules) {
-      const availableFields = rules.reduce<Field[]>((accumulator, current) => {
-        if (current.check({ x, y })) {
-          accumulator.push(...current.moves, ...current.eats);
-        }
-
-        return accumulator;
-      }, []);
-    }
-  }, [figure, x, y]);
+  const handleClick = useCallback(() => {
+    onClick({ figure, x, y });
+  }, [figure, onClick, x, y]);
 
   return (
     <FigureRoot
       style={{ left: `${x * cellSize}px`, top: `${y * cellSize}px` }}
       data-testid={figure}
-      onClick={showAvailableMoves}
+      onClick={handleClick}
     >
       <FigureComponent />
     </FigureRoot>

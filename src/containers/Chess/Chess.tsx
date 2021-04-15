@@ -1,8 +1,14 @@
 import { styled } from 'linaria/react';
 import cloneDeep from 'lodash.clonedeep';
 import { memo, useCallback, useEffect, useState } from 'react';
-import { ChessBoard, Figure } from '../../components';
-import { BoardState, cellSize, emptyBoard } from '../../constants';
+import { ChessBoard, Figure, FigureInfo } from '../../components';
+import {
+  BoardState,
+  cellSize,
+  emptyBoard,
+  legalMoves,
+  NullableField
+} from '../../constants';
 import { useSwitcher } from '../../utils';
 import { AddPawnButton } from './AddPawnButton';
 import { getLegalRandomPosition } from './helpers';
@@ -43,6 +49,22 @@ export const Chess = memo(() => {
     isInitialState && resetBoardState();
   }, [isInitialState, resetBoardState]);
 
+  const handleFigureClick = useCallback(({ figure, x, y }: FigureInfo) => {
+    const rules = legalMoves[figure];
+    if (rules) {
+      const availableFields = rules.reduce<NullableField[]>(
+        (accumulator, current) => {
+          if (current.check({ x, y })) {
+            accumulator.push(...current.moves, ...current.eats);
+          }
+
+          return accumulator;
+        },
+        []
+      );
+    }
+  }, []);
+
   return (
     <>
       <Root>
@@ -57,6 +79,7 @@ export const Chess = memo(() => {
                   y={indexCell}
                   figure={itemCell}
                   key={indexRow + indexCell}
+                  onClick={handleFigureClick}
                 />
               ) : null
             )

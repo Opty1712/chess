@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash.clonedeep';
 import { emptyBoard, legalFields } from '../../constants';
-import { checkIsFieldOccupied, getRandomField } from './helpers';
+import { checkIsFieldOccupied, getAllMoves, getRandomField } from './helpers';
 
 describe(nameof(checkIsFieldOccupied), () => {
   const board = cloneDeep(emptyBoard);
@@ -31,5 +31,22 @@ describe(nameof(getRandomField), () => {
       expect(y).toBeGreaterThanOrEqual(fields.y[0]);
       expect(y).toBeLessThanOrEqual(fields.y[1]);
     }
+  });
+});
+
+describe(nameof(getAllMoves), () => {
+  it('Returns all moves of the figure', () => {
+    expect(getAllMoves({ figure: 'whitePawn', x: 1, y: 1 })).toStrictEqual([
+      { x: 0, y: -1 },
+      { x: -1, y: -1 },
+      { x: 1, y: -1 }
+    ]);
+
+    expect(getAllMoves({ figure: 'whitePawn', x: 1, y: 6 })).toStrictEqual([
+      { x: 0, y: -2 },
+      { x: 0, y: -1 },
+      { x: -1, y: -1 },
+      { x: 1, y: -1 }
+    ]);
   });
 });

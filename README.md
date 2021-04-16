@@ -8,8 +8,3 @@
 5. There is no need to handle pawn promotion, although that would be bonus points if you do.
 6. Do not use any 3rd-party chess libraries.
 7. Return your code in an online executable sandbox, such as https://codesandbox.io/
-
-TODO:
-1. add tests
-2. check on windows
-3. simplify board creation

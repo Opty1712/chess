@@ -8,24 +8,23 @@ describe(nameof(ChessBoard), () => {
   const board = screen.getByTestId(boardTestId);
 
   it('A8 is white', () => {
-    expect(board.children[11].classList.contains(whiteCellClassName)).toBe(
-      true
-    );
+    expect(board.children[1].classList.contains(whiteCellClassName)).toBe(true);
   });
 
   it('B8 is black', () => {
-    expect(board.children[12].classList.contains(whiteCellClassName)).toBe(
+    expect(board.children[2].classList.contains(whiteCellClassName)).toBe(
       false
     );
   });
 
   it('A1 is black', () => {
-    expect(board.children[81].classList.contains(whiteCellClassName)).toBe(
+    expect(board.children[71].classList.contains(whiteCellClassName)).toBe(
       false
     );
   });
+
   it('H1 is white', () => {
-    expect(board.children[88].classList.contains(whiteCellClassName)).toBe(
+    expect(board.children[78].classList.contains(whiteCellClassName)).toBe(
       true
     );
   });

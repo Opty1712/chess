@@ -74,7 +74,6 @@ export const addWhitePawn = (boardState: BoardState) => {
   return clonedState;
 };
 
-// TODO: test
 export const makeFigureStep = (
   boardState: BoardState,
   figureInfo: FigureInfo,
@@ -93,8 +92,7 @@ export const makeFigureStep = (
   return clonedState;
 };
 
-// TODO: test
-const checkPromotion = (figureInfo: FigureInfo, field: Field) => {
+export const checkPromotion = (figureInfo: FigureInfo, field: Field) => {
   const rules = legalMoves[figureInfo.figure];
 
   if (rules) {
@@ -107,7 +105,6 @@ const checkPromotion = (figureInfo: FigureInfo, field: Field) => {
   }
 };
 
-// TODO: test
 export const getAvailableFieldsGrid = (
   figureInfo: FigureInfo,
   boardState: BoardState
@@ -147,7 +144,6 @@ export const getAllMoves = ({ figure, x, y }: FigureInfo) => {
   return emptyMoves;
 };
 
-// TODO: test
 export const getAvailableFieldsByCurrentBoardState = (
   figureInfo: FigureInfo,
   boardState: BoardState,
@@ -170,7 +166,6 @@ export const getAvailableFieldsByCurrentBoardState = (
   return [...fieldsToEatInsideBoard, ...fieldsToMoveInsideBoard];
 };
 
-// TODO: test
 export const convertMovesToFields = (figureInfo: FigureInfo, moves: Field[]) =>
   moves.reduce<Field[]>((accumulator, current) => {
     const x = figureInfo.x + current.x;
@@ -180,13 +175,11 @@ export const convertMovesToFields = (figureInfo: FigureInfo, moves: Field[]) =>
     return accumulator;
   }, []);
 
-// TODO: test
 export const removeOutOfBoardFields = (fields: Field[]) => {
   return fields.filter(({ x, y }) => x >= 0 && x <= 7 && y >= 0 && y <= 7);
 };
 
-// TODO: test
-const removeUnavailableFields = (
+export const removeUnavailableFields = (
   fields: Field[],
   boardState: BoardState,
   action: 'move' | 'eat'

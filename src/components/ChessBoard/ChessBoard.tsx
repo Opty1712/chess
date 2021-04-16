@@ -9,43 +9,36 @@ import {
 import { Field } from './Field';
 
 export const ChessBoard = memo(() => (
-  <BoardWithLineHeadings>
-    {rowHeadingList.map((item, index) => {
-      const rowName = rowHeadingList.length - Number(item) + 1;
+  <>
+    <AlphabeticalLine />
+    <Board data-testid={boardTestId}>
+      {rowHeadingList.map((item, index) => {
+        const rowName = rowHeadingList.length - Number(item) + 1;
 
-      return (
-        <Fragment key={rowName}>
-          <LineName>{rowName}</LineName>
-          {getRow(index % 2 === 0)}
-          <LineName>{rowName}</LineName>
-        </Fragment>
-      );
-    })}
-  </BoardWithLineHeadings>
+        return (
+          <Fragment key={rowName}>
+            <LineName>{rowName}</LineName>
+            {getRow(index % 2 === 0)}
+            <LineName>{rowName}</LineName>
+          </Fragment>
+        );
+      })}
+    </Board>
+    <AlphabeticalLine />
+  </>
 ));
 ChessBoard.displayName = nameof(ChessBoard);
 
 const AlphabeticalLine = memo(() => (
-  <>
+  <Alphabetical>
     <LineName />
     {columnHeadingList.map((item) => (
       <LineName key={item}>{item}</LineName>
     ))}
     <LineName />
-  </>
+  </Alphabetical>
 ));
 AlphabeticalLine.displayName = nameof(AlphabeticalLine);
-
-const BoardWithLineHeadings = memo(({ children }) => {
-  return (
-    <BoardStyled data-testid={boardTestId}>
-      <AlphabeticalLine />
-      {children}
-      <AlphabeticalLine />
-    </BoardStyled>
-  );
-});
-BoardWithLineHeadings.displayName = nameof(BoardWithLineHeadings);
 
 const rowStartingWithWhite = new Array(8)
   .fill('')
@@ -74,8 +67,12 @@ const LineName = styled.div`
   user-select: none;
 `;
 
-const BoardStyled = styled.div`
-  border: 1px solid ${colors.light};
+const Board = styled.div`
+  display: grid;
+  grid-template-columns: repeat(10, ${cellSize}px);
+`;
+
+const Alphabetical = styled.div`
   display: grid;
   grid-template-columns: repeat(10, ${cellSize}px);
 `;

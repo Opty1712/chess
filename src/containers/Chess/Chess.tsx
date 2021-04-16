@@ -66,7 +66,9 @@ export const Chess = memo(() => {
     <>
       <Root>
         <ChessBoard />
+
         <ChessFigures onClick={handleFigureClick} boardState={boardState} />
+
         {isAvailableMovesVisible && (
           <AvailableMoves
             onClick={handleAvailableFieldClick}

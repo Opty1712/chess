@@ -74,6 +74,19 @@ export const addWhitePawn = (boardState: BoardState) => {
   return clonedState;
 };
 
+// TODO: test
+export const makeFigureStep = (
+  boardState: BoardState,
+  figureInfo: FigureInfo,
+  field: Field
+) => {
+  const clonedState = cloneDeep(boardState);
+  clonedState[figureInfo.x][figureInfo.y] = null;
+  clonedState[field.x][field.y] = figureInfo.figure;
+
+  return clonedState;
+};
+
 export const getAvailableFieldsGrid = (
   figureInfo: FigureInfo,
   boardState: BoardState

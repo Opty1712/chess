@@ -9,7 +9,8 @@ import { ChessFigures } from './ChessFigures';
 import {
   addWhitePawn,
   getAvailableFieldsGrid,
-  getInitialBoard
+  getInitialBoard,
+  makeFigureStep
 } from './helpers';
 import { ResetButton } from './ResetButton';
 
@@ -49,10 +50,17 @@ export const Chess = memo(() => {
     setIsAvailableMovesVisible(true);
   }, []);
 
-  const handleAvailableFieldClick = useCallback((field: Field) => {
-    setIsAvailableMovesVisible(false);
-    console.warn(field);
-  }, []);
+  const handleAvailableFieldClick = useCallback(
+    (field: Field) => {
+      setIsAvailableMovesVisible(false);
+      const isMakingStep = Boolean(boardMoves[field.x][field.y]);
+
+      if (isMakingStep && figureInfo) {
+        setBoardState((value) => makeFigureStep(value, figureInfo, field));
+      }
+    },
+    [boardMoves, figureInfo]
+  );
 
   return (
     <>

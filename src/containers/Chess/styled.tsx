@@ -11,7 +11,7 @@ export const ChessGrid = styled.div`
   grid-auto-flow: column;
 `;
 
-export const EmptyCell = styled.div`
+export const Cell = styled.div`
   height: ${cellSize}px;
   width: ${cellSize}px;
 `;

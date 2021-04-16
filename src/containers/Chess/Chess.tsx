@@ -1,7 +1,7 @@
 import { styled } from 'linaria/react';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { ChessBoard, FigureInfo } from '../../components';
-import { BoardState, emptyBoard } from '../../constants';
+import { BoardState, emptyBoard, Field } from '../../constants';
 import { useSwitcher } from '../../utils';
 import { AddPawnButton } from './AddPawnButton';
 import { AvailableMoves } from './AvailableMoves';
@@ -26,6 +26,7 @@ export const Chess = memo(() => {
 
   const resetBoardState = useCallback(() => {
     setIsInitialStateOn();
+    setIsAvailableMovesVisible(false);
     setBoardState(getInitialBoard());
   }, [setIsInitialStateOn]);
 
@@ -48,8 +49,9 @@ export const Chess = memo(() => {
     setIsAvailableMovesVisible(true);
   }, []);
 
-  const handleAvailableFieldClick = useCallback(() => {
+  const handleAvailableFieldClick = useCallback((field: Field) => {
     setIsAvailableMovesVisible(false);
+    console.warn(field);
   }, []);
 
   return (

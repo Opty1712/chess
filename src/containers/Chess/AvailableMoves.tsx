@@ -1,11 +1,11 @@
-import { memo } from 'react';
+import { memo, MouseEventHandler, useCallback } from 'react';
 import { Figure } from '../../components';
-import { BoardState } from '../../constants';
-import { ChessGrid, EmptyCell } from './styled';
+import { BoardState, Field } from '../../constants';
+import { Cell, ChessGrid } from './styled';
 
 type AvailableMovesProps = {
   boardMoves: BoardState;
-  onClick: () => void;
+  onClick: (field: Field) => void;
 };
 
 export const AvailableMoves = memo<AvailableMovesProps>(
@@ -23,7 +23,11 @@ export const AvailableMoves = memo<AvailableMovesProps>(
                 onClick={onClick}
               />
             ) : (
-              <EmptyCell key={indexRow + indexCell} onClick={onClick} />
+              <EmptyCell
+                key={indexRow + indexCell}
+                onClick={onClick}
+                field={{ x: indexRow, y: indexCell }}
+              />
             )
           )
         )}
@@ -33,4 +37,21 @@ export const AvailableMoves = memo<AvailableMovesProps>(
 );
 AvailableMoves.displayName = nameof(AvailableMoves);
 
-const availableMovesTestId = 'availableMovesTestId';
+export const availableMovesTestId = 'availableMovesTestId';
+
+type EmptyCellProps = Pick<AvailableMovesProps, 'onClick'> & {
+  field: Field;
+};
+
+const EmptyCell = memo<EmptyCellProps>(({ onClick, field }) => {
+  const handleClick = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (event) => {
+      event.stopPropagation();
+      onClick(field);
+    },
+    [field, onClick]
+  );
+
+  return <Cell onClick={handleClick} />;
+});
+EmptyCell.displayName = nameof(EmptyCell);

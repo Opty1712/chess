@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Figure, FigureInfo } from '../../components';
 import { BoardState } from '../../constants';
-import { ChessGrid, EmptyCell } from './styled';
+import { Cell, ChessGrid } from './styled';
 
 type ChessFiguresProps = {
   boardState: BoardState;
@@ -23,7 +23,7 @@ export const ChessFigures = memo<ChessFiguresProps>(
                 onClick={onClick}
               />
             ) : (
-              <EmptyCell key={indexRow + indexCell} />
+              <Cell key={indexRow + indexCell} />
             )
           )
         )}

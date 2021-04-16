@@ -1,4 +1,9 @@
-import React, { ComponentType, memo, useCallback } from 'react';
+import React, {
+  ComponentType,
+  memo,
+  MouseEventHandler,
+  useCallback
+} from 'react';
 import { Field, FigureName } from '../../constants';
 import { FigureRoot } from './FigureRoot';
 import { AvailableMove, BlackPawn, WhitePawn, WhiteQueen } from './Figures';
@@ -20,9 +25,13 @@ type FigureProps = FigureInfo & {
 export const Figure = memo<FigureProps>(({ x, y, figure, onClick }) => {
   const FigureComponent = figureComponents[figure];
 
-  const handleClick = useCallback(() => {
-    onClick({ figure, x, y });
-  }, [figure, onClick, x, y]);
+  const handleClick = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (event) => {
+      event.stopPropagation();
+      onClick({ figure, x, y });
+    },
+    [figure, onClick, x, y]
+  );
 
   return (
     <FigureRoot data-testid={figure} onClick={handleClick}>

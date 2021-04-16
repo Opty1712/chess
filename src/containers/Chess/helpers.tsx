@@ -82,11 +82,32 @@ export const makeFigureStep = (
 ) => {
   const clonedState = cloneDeep(boardState);
   clonedState[figureInfo.x][figureInfo.y] = null;
-  clonedState[field.x][field.y] = figureInfo.figure;
+
+  const promotingFigure = checkPromotion(
+    { ...figureInfo, x: field.x, y: field.y },
+    field
+  );
+
+  clonedState[field.x][field.y] = promotingFigure || figureInfo.figure;
 
   return clonedState;
 };
 
+// TODO: test
+const checkPromotion = (figureInfo: FigureInfo, field: Field) => {
+  const rules = legalMoves[figureInfo.figure];
+
+  if (rules) {
+    return rules.reduce<FigureName | null>(
+      (accumulator, { check, promotion }) => {
+        return check(field) && promotion ? promotion : accumulator;
+      },
+      null
+    );
+  }
+};
+
+// TODO: test
 export const getAvailableFieldsGrid = (
   figureInfo: FigureInfo,
   boardState: BoardState

@@ -13,6 +13,7 @@ type Rule = {
   check: (currentField: Field) => boolean;
   moves: Array<Field>;
   eats: Array<Field>;
+  promotion?: FigureName;
 };
 
 export const legalFields: PartialRecord<FigureName, LegalFields> = {
@@ -67,6 +68,14 @@ export const legalMoves: PartialRecord<FigureName, Rule[]> = {
       check: () => true,
       moves: topMoves.slice(0, 1),
       eats: [...topLeftMoves.slice(0, 1), ...topRightMoves.slice(0, 1)]
+    },
+
+    // pawn promotion
+    {
+      check: (currentField) => currentField?.y === 0,
+      moves: [],
+      eats: [],
+      promotion: 'whiteQueen'
     }
   ]
 };

@@ -1,19 +1,19 @@
 import React, { ComponentType, memo, useCallback } from 'react';
-import { cellSize, FigureName } from '../../constants';
+import { Field, FigureName } from '../../constants';
 import { FigureRoot } from './FigureRoot';
-import { BlackPawn, WhitePawn, WhiteQueen } from './Figures';
+import { AvailableMove, BlackPawn, WhitePawn, WhiteQueen } from './Figures';
 
 const figureComponents: Record<FigureName, ComponentType> = {
   blackPawn: BlackPawn,
   whitePawn: WhitePawn,
-  whiteQueen: WhiteQueen
+  whiteQueen: WhiteQueen,
+  availableMove: AvailableMove
 };
 
-export type FigureInfo = { figure: FigureName; x: number; y: number };
-type FigureProps = {
-  x: number;
-  y: number;
+export type FigureInfo = Field & {
   figure: FigureName;
+};
+type FigureProps = FigureInfo & {
   onClick: (figureInfo: FigureInfo) => void;
 };
 
@@ -25,11 +25,7 @@ export const Figure = memo<FigureProps>(({ x, y, figure, onClick }) => {
   }, [figure, onClick, x, y]);
 
   return (
-    <FigureRoot
-      style={{ left: `${x * cellSize}px`, top: `${y * cellSize}px` }}
-      data-testid={figure}
-      onClick={handleClick}
-    >
+    <FigureRoot data-testid={figure} onClick={handleClick}>
       <FigureComponent />
     </FigureRoot>
   );

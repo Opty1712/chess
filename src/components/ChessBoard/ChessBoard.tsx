@@ -75,7 +75,7 @@ const LineName = styled.div`
 `;
 
 const BoardStyled = styled.div`
-  border: 1px solid ${colors.lightMain};
+  border: 1px solid ${colors.light};
   display: grid;
   grid-template-columns: repeat(10, ${cellSize}px);
 `;

@@ -2,7 +2,6 @@ import { styled } from 'linaria/react';
 import { cellSize } from '../../constants';
 
 export const FigureRoot = styled.div`
-  position: absolute;
   width: ${cellSize}px;
   height: ${cellSize}px;
   cursor: pointer;

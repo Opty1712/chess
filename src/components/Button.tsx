@@ -17,6 +17,6 @@ export const Button = styled.button`
   }
 
   &:hover {
-    color: ${colors.lightMain};
+    color: ${colors.light};
   }
 `;

@@ -6,7 +6,7 @@ type LegalFields = {
   y: [number, number];
 };
 
-type Field = { x: number; y: number } | null;
+export type Field = { x: number; y: number };
 export type NullableField = Field | null;
 
 type Rule = {

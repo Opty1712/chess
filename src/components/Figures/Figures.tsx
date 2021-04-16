@@ -1,5 +1,5 @@
 import { styled } from 'linaria/react';
-import { cellSize } from '../../constants';
+import { cellSize, colors } from '../../constants';
 
 const DefaultFigure = styled.div`
   background: url(../../images/figures.svg) no-repeat;
@@ -20,4 +20,14 @@ export const BlackPawn = styled(DefaultFigure)`
 
 export const WhiteQueen = styled(DefaultFigure)`
   background-position: ${ratio * -142}px ${ratio * -219}px;
+`;
+
+export const AvailableMove = styled.div`
+  height: ${cellSize - 2}px;
+  width: ${cellSize - 2}px;
+  background-color: ${colors.dark};
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid ${colors.light};
+  opacity: 30%;
 `;

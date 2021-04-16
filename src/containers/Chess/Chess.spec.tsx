@@ -1,16 +1,18 @@
 import { render, screen } from '@testing-library/react';
-import { cellSize, FigureName } from '../../constants';
+import { FigureName } from '../../constants';
 import { Chess } from './Chess';
+import { chessFiguresTestId } from './ChessFigures';
 
 describe(nameof(Chess), () => {
   it('Only one black pawn on «C7» when initializing board', () => {
     render(<Chess />);
 
     const testId: FigureName = 'blackPawn';
-    const blackPawn = screen.getByTestId(testId);
+    const blackPawns = screen.getAllByTestId(testId);
+    expect(blackPawns.length).toBe(1);
 
-    expect(blackPawn.style.left).toBe(cellSize * 2 + 'px');
-    expect(blackPawn.style.top).toBe(cellSize * 1 + 'px');
+    const board = screen.getByTestId(chessFiguresTestId);
+    expect(board.children[17].children.length).toBe(1);
   });
 
   xit('Resetting board', () => {

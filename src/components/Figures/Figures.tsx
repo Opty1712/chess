@@ -23,11 +23,9 @@ export const WhiteQueen = styled(DefaultFigure)`
 `;
 
 export const AvailableMove = styled.div`
-  height: ${cellSize - 2}px;
-  width: ${cellSize - 2}px;
-  background-color: ${colors.dark};
+  height: ${cellSize * 0.4}px;
+  width: ${cellSize * 0.4}px;
+  background-color: ${colors.darkMinor};
   border-radius: 50%;
-  display: inline-block;
-  border: 1px solid ${colors.light};
-  opacity: 30%;
+  opacity: 90%;
 `;

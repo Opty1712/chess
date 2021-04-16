@@ -1,11 +1,11 @@
 import { memo } from 'react';
-import { Figure, FigureInfo } from '../../components';
+import { Figure } from '../../components';
 import { BoardState } from '../../constants';
 import { ChessGrid, EmptyCell } from './styled';
 
 type AvailableMovesProps = {
   boardMoves: BoardState;
-  onClick: (figureInfo: FigureInfo) => void;
+  onClick: () => void;
 };
 
 export const AvailableMoves = memo<AvailableMovesProps>(
@@ -23,7 +23,7 @@ export const AvailableMoves = memo<AvailableMovesProps>(
                 onClick={onClick}
               />
             ) : (
-              <EmptyCell key={indexRow + indexCell} />
+              <EmptyCell key={indexRow + indexCell} onClick={onClick} />
             )
           )
         )}

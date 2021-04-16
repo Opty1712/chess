@@ -1,12 +1,16 @@
 import { styled } from 'linaria/react';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { ChessBoard, FigureInfo } from '../../components';
 import { BoardState, emptyBoard } from '../../constants';
 import { useSwitcher } from '../../utils';
 import { AddPawnButton } from './AddPawnButton';
 import { AvailableMoves } from './AvailableMoves';
 import { ChessFigures } from './ChessFigures';
-import { addWhitePawn, getAllMoves, getInitialBoard } from './helpers';
+import {
+  addWhitePawn,
+  getAvailableFieldsGrid,
+  getInitialBoard
+} from './helpers';
 import { ResetButton } from './ResetButton';
 
 export const Chess = memo(() => {
@@ -17,6 +21,8 @@ export const Chess = memo(() => {
   } = useSwitcher(true);
 
   const [boardState, setBoardState] = useState<BoardState>(emptyBoard);
+  const [figureInfo, setFigureInfo] = useState<FigureInfo>();
+  const [isAvailableMovesVisible, setIsAvailableMovesVisible] = useState(false);
 
   const resetBoardState = useCallback(() => {
     setIsInitialStateOn();
@@ -32,9 +38,18 @@ export const Chess = memo(() => {
     isInitialState && resetBoardState();
   }, [isInitialState, resetBoardState]);
 
-  const handleFigureClick = useCallback((figureInfo: FigureInfo) => {
-    const allMoves = getAllMoves(figureInfo);
-    console.warn(allMoves);
+  const boardMoves = useMemo(
+    () => (figureInfo ? getAvailableFieldsGrid(figureInfo, boardState) : []),
+    [boardState, figureInfo]
+  );
+
+  const handleFigureClick = useCallback((figure: FigureInfo) => {
+    setFigureInfo(figure);
+    setIsAvailableMovesVisible(true);
+  }, []);
+
+  const handleAvailableFieldClick = useCallback(() => {
+    setIsAvailableMovesVisible(false);
   }, []);
 
   return (
@@ -42,7 +57,12 @@ export const Chess = memo(() => {
       <Root>
         <ChessBoard />
         <ChessFigures onClick={handleFigureClick} boardState={boardState} />
-        <AvailableMoves onClick={handleFigureClick} boardMoves={[]} />
+        {isAvailableMovesVisible && (
+          <AvailableMoves
+            onClick={handleAvailableFieldClick}
+            boardMoves={boardMoves}
+          />
+        )}
       </Root>
 
       {isInitialState ? (

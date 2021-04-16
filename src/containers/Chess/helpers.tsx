@@ -3,6 +3,7 @@ import { FigureInfo } from '../../components';
 import {
   BoardState,
   emptyBoard,
+  Field,
   FigureName,
   legalFields,
   legalMoves,
@@ -73,17 +74,95 @@ export const addWhitePawn = (boardState: BoardState) => {
   return clonedState;
 };
 
+export const getAvailableFieldsGrid = (
+  figureInfo: FigureInfo,
+  boardState: BoardState
+) => {
+  const allMoves = getAllMoves(figureInfo);
+
+  const fields = getAvailableFieldsByCurrentBoardState(
+    figureInfo,
+    boardState,
+    allMoves
+  );
+
+  const grid = cloneDeep(emptyBoard);
+
+  fields.forEach(({ x, y }) => (grid[x][y] = 'availableMove'));
+
+  return grid;
+};
+
+type AllMoves = { moves: Field[]; eats: Field[] };
+
 export const getAllMoves = ({ figure, x, y }: FigureInfo) => {
   const rules = legalMoves[figure];
+  const emptyMoves: AllMoves = { moves: [], eats: [] };
+
   if (rules) {
-    return rules.reduce<NullableField[]>((accumulator, current) => {
+    return rules.reduce<AllMoves>((accumulator, current) => {
       if (current.check({ x, y })) {
-        accumulator.push(...current.moves, ...current.eats);
+        accumulator.moves.push(...current.moves);
+        accumulator.eats.push(...current.eats);
       }
 
       return accumulator;
-    }, []);
+    }, emptyMoves);
   }
 
-  return [];
+  return emptyMoves;
+};
+
+// TODO: test
+export const getAvailableFieldsByCurrentBoardState = (
+  figureInfo: FigureInfo,
+  boardState: BoardState,
+  allMoves: AllMoves
+) => {
+  const fieldsToEat = convertMovesToFields(figureInfo, allMoves.eats);
+  const fieldsToEatInsideBoard = removeUnavailableFields(
+    fieldsToEat,
+    boardState,
+    'eat'
+  );
+
+  const fieldsToMove = convertMovesToFields(figureInfo, allMoves.moves);
+  const fieldsToMoveInsideBoard = removeUnavailableFields(
+    fieldsToMove,
+    boardState,
+    'move'
+  );
+
+  return [...fieldsToEatInsideBoard, ...fieldsToMoveInsideBoard];
+};
+
+// TODO: test
+export const convertMovesToFields = (figureInfo: FigureInfo, moves: Field[]) =>
+  moves.reduce<Field[]>((accumulator, current) => {
+    const x = figureInfo.x + current.x;
+    const y = figureInfo.y + current.y;
+    accumulator.push({ x, y });
+
+    return accumulator;
+  }, []);
+
+// TODO: test
+export const removeOutOfBoardFields = (fields: Field[]) => {
+  return fields.filter(({ x, y }) => x >= 0 && x <= 7 && y >= 0 && y <= 7);
+};
+
+// TODO: test
+const removeUnavailableFields = (
+  fields: Field[],
+  boardState: BoardState,
+  action: 'move' | 'eat'
+) => {
+  const inBoardFields = removeOutOfBoardFields(fields);
+  const availableFields = inBoardFields.filter((item) => {
+    const isFieldOccupied = checkIsFieldOccupied(item, boardState);
+
+    return action === 'eat' ? isFieldOccupied : !isFieldOccupied;
+  });
+
+  return availableFields;
 };

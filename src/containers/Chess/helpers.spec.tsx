@@ -36,17 +36,23 @@ describe(nameof(getRandomField), () => {
 
 describe(nameof(getAllMoves), () => {
   it('Returns all moves of the figure', () => {
-    expect(getAllMoves({ figure: 'whitePawn', x: 1, y: 1 })).toStrictEqual([
-      { x: 0, y: -1 },
-      { x: -1, y: -1 },
-      { x: 1, y: -1 }
-    ]);
+    expect(getAllMoves({ figure: 'whitePawn', x: 1, y: 1 })).toStrictEqual({
+      eats: [
+        { x: -1, y: -1 },
+        { x: 1, y: -1 }
+      ],
+      moves: [{ x: 0, y: -1 }]
+    });
 
-    expect(getAllMoves({ figure: 'whitePawn', x: 1, y: 6 })).toStrictEqual([
-      { x: 0, y: -2 },
-      { x: 0, y: -1 },
-      { x: -1, y: -1 },
-      { x: 1, y: -1 }
-    ]);
+    expect(getAllMoves({ figure: 'whitePawn', x: 1, y: 6 })).toStrictEqual({
+      eats: [
+        { x: -1, y: -1 },
+        { x: 1, y: -1 }
+      ],
+      moves: [
+        { x: 0, y: -2 },
+        { x: 0, y: -1 }
+      ]
+    });
   });
 });

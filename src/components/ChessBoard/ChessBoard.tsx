@@ -1,5 +1,5 @@
 import { styled } from 'linaria/react';
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 import {
   cellSize,
   colors,
@@ -14,11 +14,11 @@ export const ChessBoard = memo(() => (
       const rowName = rowHeadingList.length - Number(item) + 1;
 
       return (
-        <Row key={rowName} data-testid={boardTestIds.row}>
+        <Fragment key={rowName}>
           <LineName>{rowName}</LineName>
           {getRow(index % 2 === 0)}
           <LineName>{rowName}</LineName>
-        </Row>
+        </Fragment>
       );
     })}
   </BoardWithLineHeadings>
@@ -26,19 +26,19 @@ export const ChessBoard = memo(() => (
 ChessBoard.displayName = nameof(ChessBoard);
 
 const AlphabeticalLine = memo(() => (
-  <Row>
+  <>
     <LineName />
     {columnHeadingList.map((item) => (
       <LineName key={item}>{item}</LineName>
     ))}
     <LineName />
-  </Row>
+  </>
 ));
 AlphabeticalLine.displayName = nameof(AlphabeticalLine);
 
 const BoardWithLineHeadings = memo(({ children }) => {
   return (
-    <BoardStyled data-testid={boardTestIds.board}>
+    <BoardStyled data-testid={boardTestId}>
       <AlphabeticalLine />
       {children}
       <AlphabeticalLine />
@@ -61,17 +61,9 @@ export const getRow = (isWhiteCellFirst = true) => {
   return [...restCellS, firstCell];
 };
 
-export const boardTestIds = {
-  board: 'board',
-  row: 'row'
-};
-
-const Row = styled.div`
-  display: flex;
-`;
+export const boardTestId = 'board';
 
 const LineName = styled.div`
-  width: ${cellSize}px;
   height: ${cellSize}px;
   font-size: ${cellSize * 0.4}px;
   box-sizing: border-box;
@@ -84,5 +76,6 @@ const LineName = styled.div`
 
 const BoardStyled = styled.div`
   border: 1px solid ${colors.lightMain};
-  display: inline-block;
+  display: grid;
+  grid-template-columns: repeat(10, ${cellSize}px);
 `;

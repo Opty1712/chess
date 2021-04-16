@@ -1,21 +1,32 @@
 import { render, screen } from '@testing-library/react';
-import { boardTestIds, ChessBoard, getRow } from './ChessBoard';
+import { boardTestId, ChessBoard, getRow } from './ChessBoard';
 import { whiteCellClassName } from './Field';
 
 describe(nameof(ChessBoard), () => {
   render(<ChessBoard />);
 
-  const rows = screen.getAllByTestId(boardTestIds.row);
+  const board = screen.getByTestId(boardTestId);
 
   it('A8 is white', () => {
-    expect(rows[0].children[1].classList.contains(whiteCellClassName)).toBe(
+    expect(board.children[11].classList.contains(whiteCellClassName)).toBe(
       true
     );
   });
 
-  it('A1 is black', () => {
-    expect(rows[7].children[1].classList.contains(whiteCellClassName)).toBe(
+  it('B8 is black', () => {
+    expect(board.children[12].classList.contains(whiteCellClassName)).toBe(
       false
+    );
+  });
+
+  it('A1 is black', () => {
+    expect(board.children[81].classList.contains(whiteCellClassName)).toBe(
+      false
+    );
+  });
+  it('H1 is white', () => {
+    expect(board.children[88].classList.contains(whiteCellClassName)).toBe(
+      true
     );
   });
 });

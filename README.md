@@ -1,7 +1,7 @@
 # This is a decision of the technical task
 
 ## Using React:
-1. Display a chessboard with a default FEN of: 8/2p5/8/8/8/8/8/8 w KQkq - 0 1 (just black pawn on «C7»)
+1. Display a chessboard with a default FEN of: 8/2p5/8/8/8/8/8/8 w KQkq - 0 1 (just one black pawn on «C7»)
 2. Include a button that adds a white pawn to a random legal position on the board.
 3. Allow that pawn to make legal moves across the board.
 4. Ideally pawns should not appear on the first row (or the last one)

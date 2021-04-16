@@ -43,14 +43,15 @@ const getNextCell = (index: number, action?: Action) => {
   }
 };
 
-const leftMoves = getAllMoves({ x: '-' });
-const rightMoves = getAllMoves({ x: '+' });
+// const leftMoves = getAllMoves({ x: '-' }); // TODO
+// const rightMoves = getAllMoves({ x: '+' }); // TODO
 const topMoves = getAllMoves({ y: '-' });
-const bottomMoves = getAllMoves({ y: '+' });
 const topLeftMoves = getAllMoves({ x: '-', y: '-' });
+// const bottomMoves = getAllMoves({ y: '+' }); // TODO
 const topRightMoves = getAllMoves({ x: '+', y: '-' });
-const bottomLeftMoves = getAllMoves({ x: '-', y: '+' });
-const bottomRightMoves = getAllMoves({ x: '+', y: '+' });
+// const bottomLeftMoves = getAllMoves({ x: '-', y: '+' }); // TODO
+// const bottomRightMoves = getAllMoves({ x: '+', y: '+' }); // TODO
+// const horseMoves = getAllMoves(); // TODO
 
 export const legalMoves: PartialRecord<FigureName, Rule[]> = {
   whitePawn: [

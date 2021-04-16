@@ -4,9 +4,9 @@ import { Button } from '../../components';
 export const ResetButton = memo<{
   onReset: () => void;
 }>(({ onReset }) => {
-  const handleKeyDown: EventListener = useCallback(
-    (event) => {
-      if (event instanceof KeyboardEvent && event.key.toLowerCase() === 'r') {
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === 'r') {
         onReset();
       }
     },

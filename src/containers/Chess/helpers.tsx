@@ -59,6 +59,7 @@ export const checkIsFieldOccupied = (
 export const getInitialBoard = () => {
   const clonedState = cloneDeep(emptyBoard);
   clonedState[2][1] = 'blackPawn';
+
   return clonedState;
 };
 

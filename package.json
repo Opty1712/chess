@@ -8,15 +8,15 @@
     "build": "yarn clean && next build",
     "dev": "yarn clean && next",
     "start": "next start",
-    "lint": "yarn lint:ts && yarn lint:commitlint && yarn lint:prettier && yarn lint:stylelint && yarn lint:eslint",
+    "lint": "yarn lint:ts && yarn lint:commitlint && yarn lint:prettier && yarn lint:eslint && yarn lint:stylelint",
     "lint:ts": "tsc",
-    "lint:commitlint": "yarn commitlint -c commitlint.config.js --from 399c74075c502b05ae4c65f0ca58ea97d1211b14",
-    "lint:eslint": "eslint --ext .js,.jsx,.ts,.tsx --color --cache",
+    "lint:commitlint": "yarn commitlint -c commitlint.config.js",
+    "lint:eslint": "eslint --ext .js,.jsx,.ts,.tsx ./ --color --cache",
     "lint:prettier": "prettier -c ./",
     "lint:stylelint": "stylelint **/*.{ts,tsx}",
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "jest --watch",
-    "health": "yarn lint && yarn test && yarn build"
+    "healthcheck": "yarn lint && yarn test && yarn build"
   },
   "husky": {
     "hooks": {

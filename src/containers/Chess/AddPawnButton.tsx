@@ -4,9 +4,9 @@ import { Button } from '../../components';
 export const AddPawnButton = memo<{
   onAdd: () => void;
 }>(({ onAdd }) => {
-  const handleKeyDown: EventListener = useCallback(
-    (event) => {
-      if (event instanceof KeyboardEvent && event.key.toLowerCase() === 'a') {
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === 'a') {
         onAdd();
       }
     },

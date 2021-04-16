@@ -32,6 +32,7 @@ export const Chess = memo(() => {
 
   const handleFigureClick = useCallback((figureInfo: FigureInfo) => {
     const allMoves = getAllMoves(figureInfo);
+    console.warn(allMoves);
   }, []);
 
   return (

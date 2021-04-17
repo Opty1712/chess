@@ -27,7 +27,11 @@ export type BoardState = Array<RowData>;
 export const emptyBoard: BoardState = rowData.map(() => [...rowData]);
 
 /** Names of chess figures */
-export type RealFigureName = 'blackPawn' | 'whitePawn' | 'whiteQueen';
+export type RealFigureName =
+  | 'blackPawn'
+  | 'whitePawn'
+  | 'whiteQueen'
+  | 'blackQueen';
 
 /** Names of chess figures and available move */
 export type FigureName = RealFigureName | 'availableMove';

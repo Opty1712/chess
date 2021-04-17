@@ -22,6 +22,10 @@ export const WhiteQueen = styled(DefaultFigure)`
   background-position: ${ratio * -142}px ${ratio * -219}px;
 `;
 
+export const BlackQueen = styled(DefaultFigure)`
+  background-position: ${ratio * -142}px ${ratio * -94}px;
+`;
+
 export const AvailableMove = styled.div`
   height: ${cellSize * 0.4}px;
   width: ${cellSize * 0.4}px;

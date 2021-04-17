@@ -54,6 +54,17 @@ const bottomLeftMoves = getAllMoves({ x: '-', y: '+' });
 const bottomRightMoves = getAllMoves({ x: '+', y: '+' });
 // const horseMoves = getAllMoves(); // TODO
 
+const queenMovesAndEats = [
+  ...topMoves,
+  ...bottomMoves,
+  ...leftMoves,
+  ...rightMoves,
+  ...topLeftMoves,
+  ...topRightMoves,
+  ...bottomLeftMoves,
+  ...bottomRightMoves
+];
+
 export const legalMoves: PartialRecord<FigureName, Rule[]> = {
   whitePawn: [
     // two steps forward from first line
@@ -78,29 +89,44 @@ export const legalMoves: PartialRecord<FigureName, Rule[]> = {
       promotion: 'whiteQueen'
     }
   ],
+
+  blackPawn: [
+    // two steps forward from first line
+    {
+      check: (currentField) => currentField?.y === 1,
+      moves: bottomMoves.slice(1, 2),
+      eats: []
+    },
+
+    // one step forward from any line
+    {
+      check: () => true,
+      moves: bottomMoves.slice(0, 1),
+      eats: [...bottomLeftMoves.slice(0, 1), ...bottomRightMoves.slice(0, 1)]
+    },
+
+    // pawn promotion
+    {
+      check: (currentField) => currentField?.y === 7,
+      moves: [],
+      eats: [],
+      promotion: 'blackQueen'
+    }
+  ],
+
   whiteQueen: [
     {
       check: () => true,
-      moves: [
-        ...topMoves,
-        ...bottomMoves,
-        ...leftMoves,
-        ...rightMoves,
-        ...topLeftMoves,
-        ...topRightMoves,
-        ...bottomLeftMoves,
-        ...bottomRightMoves
-      ],
-      eats: [
-        ...topMoves,
-        ...bottomMoves,
-        ...leftMoves,
-        ...rightMoves,
-        ...topLeftMoves,
-        ...topRightMoves,
-        ...bottomLeftMoves,
-        ...bottomRightMoves
-      ]
+      moves: queenMovesAndEats,
+      eats: queenMovesAndEats
+    }
+  ],
+
+  blackQueen: [
+    {
+      check: () => true,
+      moves: queenMovesAndEats,
+      eats: queenMovesAndEats
     }
   ]
 };

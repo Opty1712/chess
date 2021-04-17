@@ -6,12 +6,19 @@ import React, {
 } from 'react';
 import { Field, FigureName } from '../../constants';
 import { FigureRoot } from './FigureRoot';
-import { AvailableMove, BlackPawn, WhitePawn, WhiteQueen } from './Figures';
+import {
+  AvailableMove,
+  BlackPawn,
+  BlackQueen,
+  WhitePawn,
+  WhiteQueen
+} from './Figures';
 
 const figureComponents: Record<FigureName, ComponentType> = {
   blackPawn: BlackPawn,
   whitePawn: WhitePawn,
   whiteQueen: WhiteQueen,
+  blackQueen: BlackQueen,
   availableMove: AvailableMove
 };
 

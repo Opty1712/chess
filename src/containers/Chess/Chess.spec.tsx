@@ -14,12 +14,4 @@ describe(nameof(Chess), () => {
     const board = screen.getByTestId(chessFiguresTestId);
     expect(board.children[17].children.length).toBe(1);
   });
-
-  xit('Resetting board', () => {
-    // TODO
-  });
-
-  xit('Adding a white pawn at random legal position', () => {
-    // TODO
-  });
 });

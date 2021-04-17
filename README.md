@@ -1,7 +1,10 @@
 # This is a decision of the technical task
 
 
-🔥 <a href="https://chess-six.vercel.app/" target="_blank">Demo</a>
+→→→→→→→→→→ 🔥 **<a href="https://chess-six.vercel.app/" target="_blank">Demo</a>** 🔥 ←←←←←←←←←←
+
+![Test coverage](testCoverage.png)
+
 
 ## Using React:
 1. Display a chessboard with a default FEN of: 8/2p5/8/8/8/8/8/8 w KQkq - 0 1 (just one black pawn on «C7»)
